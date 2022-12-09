@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import { wait } from "@testing-library/user-event/dist/utils";
 
 function Posts() {
   const { id } = useParams();
@@ -15,6 +14,7 @@ function Posts() {
   }
 
   async function fetchPosts(userId) {
+    setLoading(true);
     const { data } = await axios.get(
       `https://jsonplaceholder.typicode.com/posts?userId=${userId || id}`
     );
@@ -29,7 +29,9 @@ function Posts() {
   return (
     <>
       <div className="post__search">
-        <button>← Back</button>
+        <Link to="/">
+          <button>← Back</button>
+        </Link>
         <div className="post__search--container">
           <label className="post__search--label">Search by Id</label>
           <input
